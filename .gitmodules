@@ -1,0 +1,3 @@
+[submodule "vyos-build"]
+	path = vyos-build
+	url = git@github.com:vyos/vyos-build.git
