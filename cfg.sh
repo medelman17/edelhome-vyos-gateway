@@ -285,9 +285,9 @@ set firewall group interface-group IG_esxi_vmotion interface 'eth0.51'
 set firewall group interface-group IG_esxi_vsan interface 'eth0.52'
 set firewall group interface-group IG_wan interface 'eth0.4092'
 
-set firewall group address-group router-addresses 10.10.0.1
-set firewall group address-group router-addresses 127.0.0.1
-set firewall group address-group router-addresses 10.10.9.1
+set firewall group address-group router-addresses address 10.10.0.1
+set firewall group address-group router-addresses address 127.0.0.1
+set firewall group address-group router-addresses address 10.10.9.1
 
 # Default forward policy
 set firewall ipv4 forward filter default-action accept
