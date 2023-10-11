@@ -1,5 +1,11 @@
 #!/bin/vbash
 
+# Include VyOS specific functions and aliases
+source /opt/vyatta/etc/functions/script-template
+
+# Reset the configuration
+load /opt/vyatta/etc/config.boot.default
+
 forward_rule_number=101
 function forward_rule {
   rule=$((forward_rule_number))
@@ -124,8 +130,6 @@ function end_traffic {
   fi
 }
 
-load /opt/vyatta/etc/config.boot.default
-
 set system host-name 'edge'
 set system domain-name 'home.edel.host'
 
@@ -233,7 +237,7 @@ set nat destination rule 5340 destination port '53'
 set nat destination rule 5340 inbound-interface 'eth0.40'
 set nat destination rule 5340 protocol 'tcp_udp'
 set nat destination rule 5340 translation address '10.10.10.10'
-set nat destination rule 5340 translationm port '53'
+set nat destination rule 5340 translation port '53'
 
 
 set service dhcp-relay server 10.10.10.10
@@ -324,7 +328,7 @@ begin_traffic to containers
 handle_traffic to containers from guest iot lan servers trusted mgmt esxi_mgmt esxi_vmotion esxi_vsan wan local
 end_traffic to containers 
 
-egin_traffic  to guest
+begin_traffic  to guest
 handle_traffic to guest from containers iot lan servers trusted mgmt esxi_mgmt esxi_vmotion esxi_vsan wan local
 end_traffic    to guest
 
@@ -383,9 +387,6 @@ set firewall group address-group UNIFI_DEVICES address '10.10.9.7'
 set firewall group address-group UNIFI_DEVICES address '10.10.9.8'
 
 set firewall group network-group MULTICAST network '224.0.0.0/4'
-set firewall group address-group GUESTS address '10.10.30.0/24'
-
-
 
 set firewall ipv4 name OUTSIDE-INSIDE default-action 'drop'
 set firewall ipv4 name OUTSIDE-INSIDE rule 1 action 'accept'
